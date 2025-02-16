@@ -31,6 +31,13 @@ clean-targets:         # directories to be removed by `dbt clean`
 # files using the `{{ config(...) }}` macro.
 models:
   dw_aventureworks:
-    # Config indicated by + and applies to all files under models/example/
-    example:
+    staging:
+      +schema: "{{ env_var('SCHEMA_DEV') }}"
       +materialized: view
+    intermediate:
+      +schema: "{{ env_var('SCHEMA_DEV') }}"
+      +materialized: view
+    marts:
+      +schema: "{{ env_var('SCHEMA_PROD') }}" 
+      +materialized: table
+

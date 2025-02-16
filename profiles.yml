@@ -1,0 +1,26 @@
+dw_aventureworks:
+  target: dev
+  outputs:
+    prod:
+      type: snowflake
+      account: "{{ env_var('ACCOUNT') }}"
+      warehouse: "{{ env_var('WAREHOUSE') }}"
+      database: "{{ env_var('DATABASE') }}"
+      schema: "{{ env_var('SCHEMA_PROD') }}"
+      role: "{{ env_var('ROLE') }}"
+      user: "{{ env_var('USER') }}"
+      password: "{{ env_var('PASSWORD') }}"
+      threads: "{{ env_var('THREADS') }}"
+      keepalives_idle: 0
+
+    dev:
+      type: snowflake
+      account: "{{ env_var('ACCOUNT') }}"
+      warehouse: "{{ env_var('WAREHOUSE') }}"
+      database: "{{ env_var('DATABASE') }}"
+      schema: "{{ env_var('SCHEMA_DEV') }}"
+      role: "{{ env_var('ROLE') }}"
+      user: "{{ env_var('USER') }}"
+      password: "{{ env_var('PASSWORD') | int }}"
+      threads: "{{ env_var('THREADS') | int }}"
+      keepalives_idle: 0
