@@ -12,6 +12,7 @@ dw_aventureworks:
       password: "{{ env_var('PASSWORD') }}"
       threads: "{{ env_var('THREADS') }}"
       keepalives_idle: 0
+      query_tag: "CLIENT_SESSION_KEEP_ALIVE=TRUE"
 
     dev:
       type: snowflake
@@ -24,3 +25,4 @@ dw_aventureworks:
       password: "{{ env_var('PASSWORD') | int }}"
       threads: "{{ env_var('THREADS') | int }}"
       keepalives_idle: 0
+      query_tag: "CLIENT_SESSION_KEEP_ALIVE=TRUE"

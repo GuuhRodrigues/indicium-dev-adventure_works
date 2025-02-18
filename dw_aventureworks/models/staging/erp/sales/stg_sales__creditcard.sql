@@ -9,10 +9,9 @@ source as (
 renamed as (
 
     select
-        cast(creditcardid as int) as id_cartao_credito
-        ,cast(cardtype as string) as desc_motivo_venda
-        ,cast(expmonth as int) as mes_vencimento
-        ,cast(expyear as int) as ano_vencimento
+        cast(creditcardid as int) as id_cartao
+        ,cast(cardtype as string) as tipo_cartao
+        ,cast(concat(expmonth,'/',expyear) as string) as vencimento
         ,cast(modifieddate as timestamp) as data_modificacao
     from source
 

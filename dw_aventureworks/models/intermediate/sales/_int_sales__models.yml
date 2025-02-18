@@ -1,0 +1,63 @@
+version: 2
+
+models:
+  - name: int_person_joined
+    description: "Tabela intermediate com informações de pessoa."
+    columns:
+      - name: id_pessoa
+        description: "Chave primária da pessoa."
+        tests:
+          - not_null
+          - unique
+      - name: nome_completo
+        description: "Nome completo da pessoa."
+      - name: tipo_pessoa
+        description: "Tipo da pessoa (cliente, funcionário, etc.)."
+      - name: email
+        description: "Endereço de email."
+      - name: telefone
+        description: "Número de telefone."
+      - name: data_modificacao
+        description: "Data de última modificação do registro."
+      
+  - name: int_address_joined
+    description: "Tabela intermediate com informações de endereço."
+    columns:
+      - name: id_endereco
+        description: "Chave primária do endereço."
+        tests:
+          - not_null
+          - unique
+      - name: id_estado
+        description: "Chave estrangeira para a tabela de estados."
+      - name: cod_pais
+        description: "Chave estrangeira para a tabela de países."
+      - name: endereco
+        description: "Endereço."
+      - name: codigo_postal
+        description: "Código postal."
+      - name: cidade
+        description: "Cidade."
+      - name: estado
+        description: "Estado."
+      - name: pais
+        description: "País."
+      - name: data_modificacao
+        description: "Data de última modificação do registro."
+  
+  - name: int_card_joined
+    description: "Tabela intermediate com informações de cartão de crédito."
+    columns:
+      - name: id_cartao
+        description: "Chave primária do cartão."
+        tests:
+          - not_null
+          - unique
+      - name: id_pessoa
+        description: "Chave estrangeira para a tabela de cartão pessoa."
+      - name: tipo_cartao
+        description: "Tipo do cartão."
+      - name: vencimento
+        description: "Data de vencimento do cartão."
+      - name: data_modificacao
+        description: "Data de última modificação do registro."
