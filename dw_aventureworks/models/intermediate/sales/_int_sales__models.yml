@@ -17,6 +17,8 @@ models:
         description: "Endereço de email."
       - name: telefone
         description: "Número de telefone."
+      - name: tipo_telefone
+        description: "Tipo de telefone."
       - name: data_modificacao
         description: "Data de última modificação do registro."
       
@@ -59,5 +61,63 @@ models:
         description: "Tipo do cartão."
       - name: vencimento
         description: "Data de vencimento do cartão."
+      - name: data_modificacao
+        description: "Data de última modificação do registro."
+
+  - name: int_product_joined
+    description: "Tabela intermediate com informações de produtos."
+    columns:
+      - name: id_produto
+        description: "Chave primária do produto."
+        tests:
+          - not_null
+          - unique
+      - name: id_categoria
+        description: "Chave estrangeira para a tabela de categorias."
+      - name: id_subcategoria
+        description: "Chave estrangeira para a tabela de subcategorias."
+      - name: cod_produto
+        description: "Código do produto."
+      - name: desc_produto
+        description: "Descrição do produto."
+      - name: preco_sugerido
+        description: "Preço sugerido do produto."
+      - name: desc_categoria
+        description: "Descrição da categoria do produto."
+      - name: desc_subcategoria
+        description: "Descrição da subcategoria do produto."
+      - name: data_modificacao
+        description: "Data de última modificação do registro."
+
+  - name: int_sales_joined
+    description: "Tabela intermediate com informações de vendas."
+    columns:
+      - name: sk_venda
+        description: "Chave primária surrogate key da venda."
+        tests:
+          - not_null
+          - unique
+      - name: id_ordem_venda
+        description: "Chave estrangeira para a tabela de ordens de venda."
+      - name: id_motivo_venda
+        description: "Chave estrangeira para a tabela de motivos de venda."
+      - name: id_ordem_venda_detalhe
+        description: "Chave estrangeira para os detalhes da ordem de venda."
+      - name: id_produto
+        description: "Chave estrangeira para a tabela de produtos."
+      - name: desc_motivo_venda
+        description: "Descrição do motivo da venda."
+      - name: motivo_venda
+        description: "Motivo da venda."
+      - name: qtd_ordem_venda
+        description: "Quantidade da ordem de venda."
+      - name: preco_unitario
+        description: "Preço unitário do produto na venda."
+      - name: desconto_preco_unitario
+        description: "Desconto aplicado sobre o preço unitário."
+      - name: total_venda
+        description: "Total da venda."
+      - name: dat_venda
+        description: "Data da venda."
       - name: data_modificacao
         description: "Data de última modificação do registro."

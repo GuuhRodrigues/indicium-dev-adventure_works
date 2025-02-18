@@ -4,100 +4,100 @@ models:
   - name: stg_person__address
     description: "Tabela staging com informações de endereços de pessoas ou empresas."
     columns:
-      - name: addressid
+      - name: id_endereco
         description: "Chave primária do endereço."
         tests:
           - not_null
           - unique
-      - name: addressline1
-        description: "Linha principal do endereço."
-      - name: addressline2
-        description: "Linha secundária do endereço (opcional)."
-      - name: city
-        description: "Cidade do endereço."
-      - name: stateprovinceid
+      - name: id_estado
         description: "Chave estrangeira para associar ao estado ou província."
-      - name: postalcode
+      - name: endereco
+        description: "Linha principal do endereço."
+      - name: endereco2
+        description: "Linha secundária do endereço (opcional)."
+      - name: cidade
+        description: "Cidade do endereço."
+      - name: codigo_postal
         description: "Código postal do endereço."
-      - name: modifieddate
+      - name: data_modificacao
         description: "Data de última modificação do registro."
 
   - name: stg_person__emailaddress
     description: "Tabela staging com informações de endereços de email."
     columns:
-      - name: businessentityid
+      - name: id_pessoa
         description: "Chave estrangeira para associar à entidade empresarial."
         tests:
           - not_null
-          - unique
-      - name: emailaddressid
+      - name: id_email
         description: "Chave primária do endereço de email."
         tests:
           - not_null
           - unique
-      - name: emailaddress
+      - name: email
         description: "Endereço de email."
-      - name: modifieddate
+      - name: data_modificacao
         description: "Última data de modificação."
 
   - name: stg_person__personphone
     description: "Tabela staging com informações de telefones de pessoas ou empresas."
     columns:
-      - name: businessentityid
+      - name: id_pessoa
         description: "Chave estrangeira para associar à entidade empresarial."
         tests:
           - not_null
-          - unique
-      - name: phonenumber
+      - name: telefone
         description: "Número de telefone."
-      - name: phonenumbertypeid
-        description: "Chave estrangeira para associar ao tipo de número de telefone."
-      - name: modifieddate
-        description: "Última data de modificação."  
+      - name: tipo_telefone
+        description: "Tipo de número de telefone."
+      - name: data_modificacao
+        description: "Última data de modificação."
 
   - name: stg_person__countryregion
     description: "Tabela staging com informações sobre países ou regiões."
     columns:
-      - name: countryregioncode
+      - name: cod_pais
         description: "Código único para identificar o país ou região."
         tests:
           - not_null
           - unique
-      - name: countryregionname
+      - name: pais
         description: "Nome do país ou região."
-      - name: modifieddate
+      - name: data_modificacao
         description: "Última data de modificação."
 
   - name: stg_person__person
     description: "Tabela staging com informações básicas de pessoas (nome, tipo, título)."
     columns:
-      - name: businessentityid
+      - name: id_pessoa
         description: "Chave primária para identificar a pessoa ou entidade."
         tests:
           - not_null
           - unique
-      - name: persontype
+      - name: tipo_pessoa
         description: "Tipo da pessoa (cliente, funcionário, etc.)."
-      - name: firstname
+      - name: primeiro_nome
         description: "Primeiro nome da pessoa."
-      - name: lastname
+      - name: nome_meio
+        description: "Nome do meio da pessoa."
+      - name: ultimo_nome
         description: "Sobrenome da pessoa."
-      - name: emailpromotion
+      - name: ind_promocao_email
         description: "Indica se a pessoa optou por receber promoções por e-mail."
-      - name: modifieddate  
+      - name: data_modificacao
         description: "Data de última modificação do registro."
 
   - name: stg_person__stateprovince
     description: "Tabela staging com informações sobre estados ou províncias."
     columns:
-      - name: stateprovinceid
+      - name: id_estado
         description: "Chave primária para identificar o estado ou província."
         tests:
           - not_null
           - unique
-      - name: stateprovincename
-        description: "Nome do estado ou província."
-      - name: countryregioncode
+      - name: cod_pais
         description: "Código do país ou região associado."
-      - name: modifieddate  
+      - name: estado
+        description: "Nome do estado ou província."
+      - name: data_modificacao
         description: "Data de última modificação do registro."

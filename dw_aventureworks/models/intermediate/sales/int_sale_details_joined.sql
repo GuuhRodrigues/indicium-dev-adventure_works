@@ -27,7 +27,8 @@ sales_reason as (
 joined_sale_details as (
 
         select
-            sales_order_header.id_ordem_venda
+            {{ dbt_utils.generate_surrogate_key(['sales_order_header.id_ordem_venda', 'sales_order_detail.id_ordem_venda_detalhe', 'sales_order_header_reason.id_motivo_venda']) }} as sk_venda
+            ,sales_order_header.id_ordem_venda
             ,sales_order_header_reason.id_motivo_venda
             ,sales_order_detail.id_ordem_venda_detalhe
             ,sales_order_detail.id_produto

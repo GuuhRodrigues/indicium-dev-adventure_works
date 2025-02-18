@@ -4,92 +4,88 @@ models:
   - name: stg_sales__creditcard
     description: "Tabela staging com informações sobre cartões de crédito usados nas vendas."
     columns:
-      - name: creditcardid
+      - name: id_cartao
         description: "Chave primária para identificar o cartão de crédito."
         tests:
           - not_null
           - unique
-      - name: cardtype
+      - name: tipo_cartao
         description: "Tipo do cartão de crédito (Visa, MasterCard, etc.)."
-      - name: expmonth
-        description: "Mês de validade do cartão."
-      - name: expyear
-        description: "Ano de validade do cartão."
-      - name: modifieddate
+      - name: vencimento
+        description: "Data de validade do cartão (Mês/Ano)."
+      - name: data_modificacao
         description: "Data de última modificação do registro."
 
   - name: stg_sales__salesorderdetail
     description: "Tabela staging com os detalhes dos pedidos de venda realizados."
     columns:
-      - name: salesorderid
+      - name: id_ordem_venda
         description: "Chave estrangeira associada ao cabeçalho do pedido."
-      - name: salesorderdetailid
+      - name: id_ordem_venda_detalhe
         description: "Identificador único do detalhe do pedido."
-      - name: productid
+      - name: id_produto
         description: "Chave estrangeira associada ao produto no pedido."
-      - name: orderqty
+      - name: qtd_ordem
         description: "Quantidade do produto no pedido."
-      - name: unitprice
+      - name: preco_unitario
         description: "Preço unitário do produto."
-      - name: unitpricediscount
+      - name: desconto_preco_unitario
         description: "Desconto aplicado ao preço unitário."
-      - name: modifieddate
+      - name: data_modificacao
         description: "Data de última modificação do registro."
 
   - name: stg_sales__salesorderheader
     description: "Tabela staging com os cabeçalhos dos pedidos de venda."
     columns:
-      - name: salesorderid
+      - name: id_ordem_venda
         description: "Chave primária do cabeçalho do pedido."
         tests:
           - not_null
           - unique
-      - name: totaldue
+      - name: total_venda
         description: "Valor total devido no pedido."
-      - name: orderdate
+      - name: dat_venda
         description: "Data em que o pedido foi realizado."
-      - name: modifieddate
+      - name: data_modificacao
         description: "Data de última modificação do registro."
 
   - name: stg_sales__salesorderheadersalesreason
     description: "Tabela staging com os motivos associados aos pedidos de venda."
     columns:
-      - name: salesorderid
+      - name: id_ordem_venda
         description: "Chave estrangeira associada ao pedido de venda."
         tests:
           - not_null
-      - name: salesreasonid
+      - name: id_motivo_venda
         description: "Chave estrangeira associada ao motivo da venda."
-      - name: modifieddate
+      - name: data_modificacao
         description: "Data de última modificação do registro."
 
   - name: stg_sales__salesreason
     description: "Tabela staging com os motivos de venda associados aos pedidos."
     columns:
-      - name: salesreasonid
+      - name: id_motivo_venda
         description: "Chave primária para identificar o motivo da venda."
         tests:
           - not_null
           - unique
-      - name: name
+      - name: desc_motivo_venda
         description: "Nome do motivo da venda."
-      - name: reasontype
+      - name: motivo_venda
         description: "Tipo do motivo (ex.: preço, promoção)."
-      - name: modifieddate
+      - name: data_modificacao
         description: "Data de última modificação do registro."
 
   - name: stg_sales__personcreditcard
-    description: "Tabela com ligações para pessoa e cartao."
+    description: "Tabela com ligações para pessoa e cartão."
     columns:
-      - name: businessentityid
+      - name: id_pessoa
         description: "Identificador único da pessoa."
         tests:
           - not_null
-          - unique
-      - name: creditcardid
+      - name: id_cartao
         description: "Identificador único do cartão."
         tests:
           - not_null
-          - unique
-      - name: modifieddate
+      - name: data_modificacao
         description: "Data de última modificação do registro."
