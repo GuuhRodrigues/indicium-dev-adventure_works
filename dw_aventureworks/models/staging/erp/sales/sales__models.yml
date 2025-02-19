@@ -42,6 +42,10 @@ models:
         tests:
           - not_null
           - unique
+      - name: fk_cartao
+        description: "Chave estrangeira associada ao cartão."
+      - name: fk_endereco
+        description: "Chave estrangeira associada ao endereço de entrega."
       - name: total_venda
         description: "Valor total devido no pedido."
       - name: dat_venda

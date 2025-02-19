@@ -38,6 +38,6 @@ models:
       +schema: "{{ env_var('SCHEMA_DEV') }}"
       +materialized: view
     marts:
-      +schema: "{{ env_var('SCHEMA_PROD') }}" 
+      +schema: "{{ env_var('SCHEMA_DEV') }}" 
       +materialized: table
 

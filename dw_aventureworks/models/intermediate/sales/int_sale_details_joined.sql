@@ -29,9 +29,11 @@ joined_sale_details as (
         select
             {{ dbt_utils.generate_surrogate_key(['sales_order_header.id_ordem_venda', 'sales_order_detail.id_ordem_venda_detalhe', 'sales_order_header_reason.id_motivo_venda']) }} as sk_venda
             ,sales_order_header.id_ordem_venda
-            ,sales_order_header_reason.id_motivo_venda
+            ,sales_order_header_reason.id_motivo_venda as fk_motivo_venda
             ,sales_order_detail.id_ordem_venda_detalhe
-            ,sales_order_detail.id_produto
+            ,sales_order_detail.id_produto as fk_produto
+            ,sales_order_header.id_cartao as fk_cartao
+            ,sales_order_header.id_endereco as fk_endereco
             ,sales_reason.desc_motivo_venda
             ,sales_reason.motivo_venda
             ,sales_order_detail.qtd_ordem as qtd_ordem_venda
