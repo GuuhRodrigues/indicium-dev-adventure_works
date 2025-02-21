@@ -51,6 +51,11 @@ jobs:
     - name: Verify AWS CLI Installation
       run: aws --version
 
+    - name: Move profiles.yml to dbt directory
+      run: |
+        mkdir -p ~/.dbt
+        cp profiles.yml ~/.dbt/profiles.yml
+
     - name: Copy manifest.json from S3
       run: |
         aws s3 cp s3://${{ env.S3_BUCKET_NAME }}/${{ env.S3_PATH_MANIFEST }} ./ || echo "Manifest not found"
@@ -69,15 +74,15 @@ jobs:
       run: |
         cd dw_adventureworks
         if [ -f "./manifest.json" ]; then
-          dbt build -s 'state:modified+' --defer --state ./
+          dbt build -s 'state:modified+' --defer --state ./ --profiles-dir ~/.dbt/
         else
-          dbt build
+          dbt build --profiles-dir ~/.dbt/
         fi
 
     - name: Run dbt test
       run: |
         cd dw_adventureworks
-        dbt test
+        dbt test --profiles-dir ~/.dbt/
 
     - name: Finish CI
       run: echo "CI finished successfully"

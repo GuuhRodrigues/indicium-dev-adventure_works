@@ -51,6 +51,11 @@ jobs:
     - name: Verify AWS CLI Installation
       run: aws --version
 
+    - name: Move profiles.yml to dbt directory
+      run: |
+        mkdir -p ~/.dbt
+        cp profiles.yml ~/.dbt/profiles.yml
+
     - name: Copy manifest.json from S3
       run: |
         aws s3 cp s3://${{ env.S3_BUCKET_NAME }}/${{ env.S3_PATH_MANIFEST }} ./ || echo "Manifest not found"
@@ -58,35 +63,33 @@ jobs:
     - name: Run dbt debug
       run: |
         cd dw_adventureworks
-        dbt debug --target dev
+        dbt debug --target dev --profiles-dir ~/.dbt/
 
     - name: Run dbt deps
       run: |
-        cd datawarehouse
-        dbt deps
+        cd dw_adventureworks
+        dbt deps --profiles-dir ~/.dbt/
 
     - name: Run dbt build
       run: |
         cd dw_adventureworks
         if [ -f "./manifest.json" ]; then
-          dbt build -s 'state:modified+' --defer --state ./ 
+          dbt build -s 'state:modified+' --defer --state ./ --profiles-dir ~/.dbt/
         else
-          dbt build
+          dbt build --profiles-dir ~/.dbt/
         fi
-    
+
     - name: Run dbt test
       run: |
         cd dw_adventureworks
-        dbt test
+        dbt test --profiles-dir ~/.dbt/
 
-``  - name: Copy new manifest.json to Amazon S3
+    - name: Copy new manifest.json to Amazon S3
       run: |
         echo "Copying new manifest.json to S3"
-        aws s3 cp ./datawarehouse/target/manifest.json s3://${{ env.S3_BUCKET_NAME }}/${{ secrets.S3_PATH_MANIFEST }}/
+        aws s3 cp ./dw_adventureworks/target/manifest.json s3://${{ env.S3_BUCKET_NAME }}/${{ secrets.S3_PATH_MANIFEST }}/
         ls -al
         echo "Manifest copied to S3"
 
     - name: Finish CD
       run: echo "CD finished successfully"
-
-    
