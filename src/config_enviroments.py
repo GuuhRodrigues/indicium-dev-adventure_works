@@ -13,7 +13,3 @@ ROLE = os.getenv('ROLE')
 USER = os.getenv('USER')
 PASSWORD = os.getenv('PASSWORD')
 THREADS = os.getenv('THREADS')
-
-print('SCHEMA_STG:', SCHEMA_STG)
-print('SCHEMA_INT:', SCHEMA_INT)
-print('SCHEMA_MART:', SCHEMA_MART)
