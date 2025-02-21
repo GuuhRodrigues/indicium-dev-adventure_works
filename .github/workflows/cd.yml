@@ -79,7 +79,7 @@ jobs:
         cd dw_adventureworks
         dbt test
 
-``  - name: Copy new manifest.json to S3
+``  - name: Copy new manifest.json to Amazon S3
       run: |
         echo "Copying new manifest.json to S3"
         aws s3 cp ./datawarehouse/target/manifest.json s3://${{ env.S3_BUCKET_NAME }}/${{ secrets.S3_PATH_MANIFEST }}/
