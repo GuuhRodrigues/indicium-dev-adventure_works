@@ -1,0 +1,88 @@
+version: 2
+
+sources:
+  - name: person
+    database: FEA24_11
+    schema: RAW_ADVENTURE_WORKS
+    tables:
+      - name: address
+        description: "Tabela com informações de endereços."
+        columns:
+          - name: addressid
+            description: "Identificador único do endereço."
+          - name: stateprovinceid
+            description: "Identificador do estado ou província associado ao endereço."
+          - name: addressline1
+            description: "Linha principal do endereço."
+          - name: addressline2
+            description: "Linha secundária do endereço (opcional)."
+          - name: city
+            description: "Cidade do endereço."
+          - name: postalcode
+            description: "Código postal do endereço."
+          - name: modifieddate
+            description: "Data de última modificação do registro."
+
+      - name: emailaddress
+        description: "Tabela com informações de endereço de email."
+        columns:
+          - name: businessentityid
+            description: "Identificador da entidade empresarial."
+          - name: emailaddressid
+            description: "Identificador de endereço de email."
+          - name: emailaddress
+            description: "Endereço de email."
+          - name: modifieddate
+            description: "Data de última modificação do registro."
+
+      - name: personphone
+        description: "Tabela com informações de telefones."
+        columns:
+          - name: businessentityid
+            description: "Identificador da entidade empresarial."
+          - name: phonenumber
+            description: "Número de telefone."
+          - name: phonenumbertypeid
+            description: "Identificador do tipo de número de telefone."
+          - name: modifieddate
+            description: "Data de última modificação do registro."
+
+      - name: countryregion
+        description: "Tabela com informações sobre países e regiões."
+        columns:
+          - name: countryregioncode
+            description: "Código que identifica o país."
+          - name: name
+            description: "Nome do país ou região."
+          - name: modifieddate
+            description: "Data de última modificação do registro."
+
+      - name: person
+        description: "Tabela com informações de pessoas, como nome, título e tipo."
+        columns:
+          - name: businessentityid
+            description: "Chave primária para identificar a pessoa ou entidade."
+          - name: persontype
+            description: "Tipo da pessoa (cliente, funcionário, etc.)."
+          - name: firstname
+            description: "Primeiro nome da pessoa."
+          - name: middlename
+            description: "Nome do meio da pessoa."
+          - name: lastname
+            description: "Sobrenome da pessoa."
+          - name: emailpromotion
+            description: "Indica se a pessoa optou por receber promoções por e-mail."
+          - name: modifieddate  
+            description: "Data de última modificação do registro."
+
+      - name: stateprovince
+        description: "Tabela com informações sobre estados ou províncias."
+        columns:
+          - name: stateprovinceid
+            description: "Identificador único do estado ou província."
+          - name: countryregioncode
+            description: "Código que identifica o país."
+          - name: name
+            description: "Nome do estado ou província."
+          - name: modifieddate
+            description: "Data de última modificação do registro."

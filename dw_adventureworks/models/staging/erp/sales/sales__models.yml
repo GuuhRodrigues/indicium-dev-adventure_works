@@ -1,0 +1,95 @@
+version: 2
+
+models:
+  - name: stg_sales__creditcard
+    description: "Tabela staging com informações sobre cartões de crédito usados nas vendas."
+    columns:
+      - name: id_cartao
+        description: "Chave primária para identificar o cartão de crédito."
+        tests:
+          - not_null
+          - unique
+      - name: tipo_cartao
+        description: "Tipo do cartão de crédito (Visa, MasterCard, etc.)."
+      - name: vencimento
+        description: "Data de validade do cartão (Mês/Ano)."
+      - name: data_modificacao
+        description: "Data de última modificação do registro."
+
+  - name: stg_sales__salesorderdetail
+    description: "Tabela staging com os detalhes dos pedidos de venda realizados."
+    columns:
+      - name: id_ordem_venda
+        description: "Chave estrangeira associada ao cabeçalho do pedido."
+      - name: id_ordem_venda_detalhe
+        description: "Identificador único do detalhe do pedido."
+      - name: id_produto
+        description: "Chave estrangeira associada ao produto no pedido."
+      - name: qtd_ordem
+        description: "Quantidade do produto no pedido."
+      - name: preco_unitario
+        description: "Preço unitário do produto."
+      - name: desconto_preco_unitario
+        description: "Desconto aplicado ao preço unitário."
+      - name: data_modificacao
+        description: "Data de última modificação do registro."
+
+  - name: stg_sales__salesorderheader
+    description: "Tabela staging com os cabeçalhos dos pedidos de venda."
+    columns:
+      - name: id_ordem_venda
+        description: "Chave primária do cabeçalho do pedido."
+        tests:
+          - not_null
+          - unique
+      - name: fk_cartao
+        description: "Chave estrangeira associada ao cartão."
+      - name: fk_endereco
+        description: "Chave estrangeira associada ao endereço de entrega."
+      - name: total_venda
+        description: "Valor total devido no pedido."
+      - name: dat_venda
+        description: "Data em que o pedido foi realizado."
+      - name: data_modificacao
+        description: "Data de última modificação do registro."
+
+  - name: stg_sales__salesorderheadersalesreason
+    description: "Tabela staging com os motivos associados aos pedidos de venda."
+    columns:
+      - name: id_ordem_venda
+        description: "Chave estrangeira associada ao pedido de venda."
+        tests:
+          - not_null
+      - name: id_motivo_venda
+        description: "Chave estrangeira associada ao motivo da venda."
+      - name: data_modificacao
+        description: "Data de última modificação do registro."
+
+  - name: stg_sales__salesreason
+    description: "Tabela staging com os motivos de venda associados aos pedidos."
+    columns:
+      - name: id_motivo_venda
+        description: "Chave primária para identificar o motivo da venda."
+        tests:
+          - not_null
+          - unique
+      - name: desc_motivo_venda
+        description: "Nome do motivo da venda."
+      - name: motivo_venda
+        description: "Tipo do motivo (ex.: preço, promoção)."
+      - name: data_modificacao
+        description: "Data de última modificação do registro."
+
+  - name: stg_sales__personcreditcard
+    description: "Tabela com ligações para pessoa e cartão."
+    columns:
+      - name: id_pessoa
+        description: "Identificador único da pessoa."
+        tests:
+          - not_null
+      - name: id_cartao
+        description: "Identificador único do cartão."
+        tests:
+          - not_null
+      - name: data_modificacao
+        description: "Data de última modificação do registro."

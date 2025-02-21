@@ -1,0 +1,49 @@
+version: 2
+
+models:
+  - name: stg_production__product
+    description: "Tabela staging com informações de produtos disponíveis."
+    columns:
+      - name: id_produto
+        description: "Chave primária para identificar o produto."
+        tests:
+          - not_null
+          - unique
+      - name: id_subcategoria
+        description: "Chave estrangeira para identificar a subcategoria do produto."
+      - name: desc_produto
+        description: "Descrição do produto."
+      - name: cod_produto
+        description: "Código do produto."
+      - name: preco_sugerido
+        description: "Preço de venda sugerido para o produto."
+      - name: data_modificacao
+        description: "Data de última modificação do registro."
+  
+  - name: stg_production__productcategory
+    description: "Tabela staging com informações de categorias de produtos."
+    columns:
+      - name: id_categoria
+        description: "Chave primária da categoria do produto."
+        tests:
+          - not_null
+          - unique
+      - name: desc_categoria
+        description: "Nome da categoria do produto."
+      - name: data_modificacao
+        description: "Data de última modificação do registro."
+  
+  - name: stg_production__productsubcategory
+    description: "Tabela staging com informações de subcategorias de produtos."
+    columns:
+      - name: id_subcategoria
+        description: "Chave primária para identificar a subcategoria do produto."
+        tests:
+          - not_null
+          - unique
+      - name: id_categoria
+        description: "Chave estrangeira para associar à categoria do produto."
+      - name: desc_subcategoria
+        description: "Nome da subcategoria do produto."
+      - name: data_modificacao
+        description: "Data de última modificação do registro."
