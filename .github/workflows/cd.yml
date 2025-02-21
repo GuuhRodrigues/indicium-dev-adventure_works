@@ -93,7 +93,7 @@ jobs:
     - name: Copy new manifest.json to Amazon S3
       run: |
         echo "Copying new manifest.json to S3"
-        aws s3 cp ./dw_adventureworks/target/manifest.json s3://${{ secrets.S3_BUCKET_NAME }}/${{ secrets.S3_PATH_MANIFEST }}/
+        aws s3 cp ./dw_adventureworks/target/manifest.json s3://${{ secrets.S3_BUCKET_NAME }}/${{ secrets.S3_PATH_MANIFEST }}
         ls -al
         echo "Manifest copied to S3"
 
