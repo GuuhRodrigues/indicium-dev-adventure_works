@@ -14,8 +14,6 @@ dw_adventureworks:
       keepalives_idle: 0
       query_tag: "CLIENT_SESSION_KEEP_ALIVE=TRUE"
 
-  target: prd
-  outputs:
     prod:
         type: snowflake
         account: "{{ env_var('ACCOUNT') }}"
