@@ -1,0 +1,89 @@
+name: CD_action
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  CD_job:
+    runs-on: ubuntu-latest
+
+    env:
+      ACCOUNT: ${{ secrets.ACCOUNT }}
+      WAREHOUSE: ${{ secrets.WAREHOUSE }}
+      DATABASE: ${{ secrets.DATABASE }}
+      SCHEMA_STG: ${{ secrets.SCHEMA_STG }}
+      SCHEMA_INT: ${{ secrets.SCHEMA_INT }}
+      SCHEMA_MART: ${{ secrets.SCHEMA_MART }}
+      ROLE: ${{ secrets.ROLE }}
+      USER: ${{ secrets.USER }}
+      PASSWORD: ${{ secrets.PASSWORD }}
+      THREADS: ${{ secrets.THREADS }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.12'
+
+    - name: Install dependencies
+      run: pip install -r src/requirements.txt
+
+    - name: Install AWS CLI
+      run: sudo apt-get update && sudo apt-get install -y awscli
+
+    - name: Configure AWS Credentials
+      run: |
+        aws configure set aws_access_key_id ${{ env.AWS_ACCESS_KEY_ID }}
+        aws configure set aws_secret_access_key ${{ env.AWS_SECRET_ACCESS_KEY }}
+        aws configure set default.region us-east-1
+        aws configure set output json
+
+    - name: Verify AWS CLI Installation
+      run: aws --version
+
+    - name: Copy manifest.json from S3
+      run: |
+        aws s3 cp s3://${{ env.S3_BUCKET_NAME }}/${{ env.S3_PATH_MANIFEST }} ./ || echo "Manifest not found"
+
+    - name: Run dbt debug
+      run: |
+        cd dw_adventureworks
+        dbt debug
+
+    - name: Run dbt deps
+      run: |
+        cd datawarehouse
+        dbt deps
+
+    - name: Run dbt build
+      run: |
+        cd dw_adventureworks
+        if [ -f "./manifest.json" ]; then
+          dbt build -s 'state:modified+' --defer --state ./ 
+        else
+          dbt build
+        fi
+    
+    - name: Run dbt test
+      run: |
+        cd dw_adventureworks
+        dbt test
+
+``  - name: Copy new manifest.json to S3
+      run: |
+        echo "Copying new manifest.json to S3"
+        aws s3 cp ./datawarehouse/target/manifest.json s3://${{ env.S3_BUCKET_NAME }}/${{ secrets.S3_PATH_MANIFEST }}/
+        ls -al
+        echo "Manifest copied to S3"
+
+    - name: Finish CD
+      run: echo "CD finished successfully"
+
+    
