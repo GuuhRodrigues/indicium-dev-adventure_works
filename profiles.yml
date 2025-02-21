@@ -1,4 +1,4 @@
-dw_aventureworks:
+dw_adventureworks:
   target: dev
   outputs:
     dev:
