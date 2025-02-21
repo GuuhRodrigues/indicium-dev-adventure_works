@@ -48,6 +48,8 @@ models:
         description: "Chave estrangeira associada ao endereço de entrega."
       - name: total_venda
         description: "Valor total devido no pedido."
+      - name: subtotal
+        description: "Subtotal do pedido."
       - name: dat_venda
         description: "Data em que o pedido foi realizado."
       - name: data_modificacao

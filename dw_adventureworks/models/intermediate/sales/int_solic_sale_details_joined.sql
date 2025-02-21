@@ -40,6 +40,7 @@ joined_sale_details as (
             ,sales_order_detail.preco_unitario
             ,sales_order_detail.desconto_preco_unitario
             ,sales_order_header.total_venda
+            ,sales_order_header.subtotal
             ,sales_order_header.dat_venda
             ,sales_order_header.data_modificacao
         from sales_order_header

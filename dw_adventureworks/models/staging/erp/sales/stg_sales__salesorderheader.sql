@@ -14,6 +14,7 @@ renamed as (
         ,cast(shiptoaddressid as int) as id_endereco
         ,cast(orderdate as timestamp) as dat_venda
         ,cast(totaldue as float) as total_venda
+        ,cast(subtotal as float) as subtotal
         ,cast(modifieddate as timestamp) as data_modificacao
     from source
 

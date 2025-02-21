@@ -42,6 +42,8 @@ fat_vendas as (
             ,dim_pessoa.id_pessoa
             ,dim_solic_venda.qtd_ordem_venda
             ,dim_solic_venda.preco_unitario
+            ,dim_solic_venda.desconto_preco_unitario
+            ,dim_solic_venda.subtotal
         from dim_solic_venda
         left join dim_cartao on dim_solic_venda.fk_cartao = dim_cartao.id_cartao
         left join dim_pessoa on dim_cartao.id_pessoa = dim_pessoa.id_pessoa

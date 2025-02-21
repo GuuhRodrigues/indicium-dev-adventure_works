@@ -117,6 +117,8 @@ models:
         description: "Desconto aplicado sobre o preço unitário."
       - name: total_venda
         description: "Total da venda."
+      - name: subtotal
+        description: "Subtotal da venda."
       - name: dat_venda
         description: "Data da venda."
       - name: data_modificacao
