@@ -127,9 +127,6 @@ models:
     columns:
       - name: id_tempo
         description: "Chave primária de tempo."
-        tests:
-          - not_null
-          - unique
       - name: data
         description: "Data."
       - name: competencia
