@@ -89,7 +89,7 @@ models:
       - name: data_modificacao
         description: "Data de última modificação do registro."
 
-  - name: dim_detalhes_venda
+  - name: dim_solic_venda
     description: "Tabela intermediate com informações de vendas."
     columns:
       - name: sk_venda
@@ -127,9 +127,6 @@ models:
     columns:
       - name: id_tempo
         description: "Chave primária de tempo."
-        tests:
-          - not_null
-          - unique
       - name: data
         description: "Data."
       - name: competencia

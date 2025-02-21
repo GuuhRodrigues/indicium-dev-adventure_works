@@ -22,6 +22,8 @@ jobs:
       THREADS: ${{ secrets.THREADS }}
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
+      S3_PATH_MANIFEST: ${{ secrets.S3_PATH_MANIFEST }}
 
     steps:
     - name: Checkout repository
@@ -36,54 +38,64 @@ jobs:
       run: pip install -r src/requirements.txt
 
     - name: Install AWS CLI
-      run: sudo apt-get update && sudo apt-get install -y awscli
+      run: |
+        curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+        unzip awscliv2.zip
+        sudo ./aws/install --update
 
     - name: Configure AWS Credentials
       run: |
-        aws configure set aws_access_key_id ${{ env.AWS_ACCESS_KEY_ID }}
-        aws configure set aws_secret_access_key ${{ env.AWS_SECRET_ACCESS_KEY }}
+        aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws configure set default.region us-east-1
         aws configure set output json
 
     - name: Verify AWS CLI Installation
       run: aws --version
 
+    - name: Move profiles.yml to dbt directory
+      run: |
+        mkdir -p ~/.dbt
+        cp profiles.yml ~/.dbt/profiles.yml
+
+    - name: Debug S3 Bucket Name
+      run: |
+        echo "S3_BUCKET_NAME: $S3_BUCKET_NAME"
+
     - name: Copy manifest.json from S3
       run: |
-        aws s3 cp s3://${{ env.S3_BUCKET_NAME }}/${{ env.S3_PATH_MANIFEST }} ./ || echo "Manifest not found"
+        aws s3 cp s3://${{ secrets.S3_BUCKET_NAME }}/${{ secrets.S3_PATH_MANIFEST }} ./ || echo "Manifest not found"
 
     - name: Run dbt debug
       run: |
         cd dw_adventureworks
-        dbt debug
+        dbt debug --target dev --profiles-dir ~/.dbt/
 
     - name: Run dbt deps
       run: |
-        cd datawarehouse
-        dbt deps
+        cd dw_adventureworks
+        dbt deps --profiles-dir ~/.dbt/
 
     - name: Run dbt build
       run: |
         cd dw_adventureworks
         if [ -f "./manifest.json" ]; then
-          dbt build -s 'state:modified+' --defer --state ./ 
+          dbt build -s 'state:modified+' --defer --state ./ --profiles-dir ~/.dbt/
         else
-          dbt build
+          dbt build --profiles-dir ~/.dbt/
         fi
-    
+
     - name: Run dbt test
       run: |
         cd dw_adventureworks
-        dbt test
+        dbt test --profiles-dir ~/.dbt/
 
-``  - name: Copy new manifest.json to S3
+    - name: Copy new manifest.json to Amazon S3
       run: |
         echo "Copying new manifest.json to S3"
-        aws s3 cp ./datawarehouse/target/manifest.json s3://${{ env.S3_BUCKET_NAME }}/${{ secrets.S3_PATH_MANIFEST }}/
+        aws s3 cp ./dw_adventureworks/target/manifest.json s3://${{ secrets.S3_BUCKET_NAME }}/${{ secrets.S3_PATH_MANIFEST }}/
         ls -al
         echo "Manifest copied to S3"
 
     - name: Finish CD
       run: echo "CD finished successfully"
-
-    
