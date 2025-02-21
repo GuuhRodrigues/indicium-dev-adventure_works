@@ -89,8 +89,8 @@ models:
       - name: data_modificacao
         description: "Data de última modificação do registro."
 
-  - name: int_sales_joined
-    description: "Tabela intermediate com informações de vendas."
+  - name: int_solic_sale_details_joined
+    description: "Tabela intermediate com informações de solicitação e detalhes de venda."
     columns:
       - name: sk_venda
         description: "Chave primária surrogate key da venda."
