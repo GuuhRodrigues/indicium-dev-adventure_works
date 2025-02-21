@@ -58,6 +58,10 @@ jobs:
         mkdir -p ~/.dbt
         cp profiles.yml ~/.dbt/profiles.yml
 
+    - name: Debug S3 Bucket Name
+      run: |
+        echo "S3_BUCKET_NAME: $S3_BUCKET_NAME"
+
     - name: Copy manifest.json from S3
       run: |
         aws s3 cp s3://${{ env.S3_BUCKET_NAME }}/${{ env.S3_PATH_MANIFEST }} ./ || echo "Manifest not found"
