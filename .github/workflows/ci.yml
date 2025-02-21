@@ -58,7 +58,7 @@ jobs:
     - name: Run dbt debug
       run: |
         cd dw_adventureworks
-        dbt debug
+        dbt debug --target dev
 
     - name: Run dbt deps
       run: |
