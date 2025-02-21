@@ -58,7 +58,7 @@ jobs:
 
     - name: Copy manifest.json from S3
       run: |
-        aws s3 cp s3://${{ env.S3_BUCKET_NAME }}/${{ env.S3_PATH_MANIFEST }} ./ || echo "Manifest not found"
+        aws s3 cp s3://${{ secrets.S3_BUCKET_NAME }}/${{ secrets.S3_PATH_MANIFEST }} ./ || echo "Manifest not found"
 
     - name: Run dbt debug
       run: |
