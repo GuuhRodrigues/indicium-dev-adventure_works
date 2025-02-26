@@ -34,7 +34,7 @@ joined_sale_details as (
             ,sales_order_detail.id_produto as fk_produto
             ,sales_order_header.id_cartao as fk_cartao
             ,sales_order_header.id_endereco as fk_endereco
-            ,sales_reason.desc_motivo_venda
+            ,sales_reason.status
             ,sales_reason.motivo_venda
             ,sales_order_detail.qtd_ordem as qtd_ordem_venda
             ,sales_order_detail.preco_unitario
