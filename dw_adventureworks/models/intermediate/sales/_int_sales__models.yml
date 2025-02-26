@@ -105,8 +105,8 @@ models:
         description: "Chave estrangeira para os detalhes da ordem de venda."
       - name: id_produto
         description: "Chave estrangeira para a tabela de produtos."
-      - name: desc_motivo_venda
-        description: "Descrição do motivo da venda."
+      - name: status
+        description: "Status da venda."
       - name: motivo_venda
         description: "Motivo da venda."
       - name: qtd_ordem_venda

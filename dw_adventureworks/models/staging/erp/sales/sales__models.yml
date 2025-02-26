@@ -75,8 +75,8 @@ models:
         tests:
           - not_null
           - unique
-      - name: desc_motivo_venda
-        description: "Nome do motivo da venda."
+      - name: status
+        description: "Status da venda."
       - name: motivo_venda
         description: "Tipo do motivo (ex.: preço, promoção)."
       - name: data_modificacao
