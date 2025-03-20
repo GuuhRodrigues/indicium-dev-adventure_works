@@ -43,7 +43,7 @@ A análise inicial identificou os seguintes sistemas geradores de dados relevant
    - Criação das tabelas de fatos e dimensões
 
 3. **Transformação e Carga de Dados**
-   - Criado um diagrama para transformação
+   - Criação do Diagrama para o Processo de Transformação
    ![Diagrama DBT](https://github.com/user-attachments/assets/d7349f5a-a258-4f85-bf83-04001c3198e4)
    - Extração dos dados brutos do Snowflake
    - Transformações para limpeza e enriquecimento dos dados
